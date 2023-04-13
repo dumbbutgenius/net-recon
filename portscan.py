@@ -27,7 +27,7 @@ def scan(ip):
 			print("[-] Hostname could not be resolved. Exiting")
 
 if __name__ == "__main__":
-	if len(sys.argv != 1):
+	if len(sys.argv) != 2:
 		usage()
 		sys.exit()
 	host = sys.argv[1]
