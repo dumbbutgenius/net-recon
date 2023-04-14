@@ -2,28 +2,24 @@ import sys
 import socket
 from datetime import datetime
 
-# Usage prompt
 def usage():
 	print("[*] Usage:")
-	print("portscan [REMOTE HOST]")
+	print("bangrab [REMOTE HOST]")
 
 def scan(ip):
 	for port in range(1,10000):
 		try:
 			sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			# Connect to host on port, get error message if any
 			response = sock.connect_ex((ip, port))
-			# No error
 			if response == 0:
-				print("[+] Port {} open".format(port))
-			# Close socket for this iteration
+				# Store first text sent by daemon in 1024 sized buffer, usually denoting the service being run on the port
+				banner = sock.recv(1024).decode()
+				print("[+] Port {} open: {}".format(port, banner))
 			sock.close()
 		except KeyboardInterrupt:
-			# User presses Ctrl+C
 			print("[-] Exiting")
 			sys.exit()
 		except socket.gaierror:
-			# Error: couldn't resolve hostname
 			print("[-] Hostname could not be resolved. Exiting")
 			sys.exit()
 
@@ -33,10 +29,8 @@ if __name__ == "__main__":
 		sys.exit()
 	host = sys.argv[1]
 	ip = socket.gethostbyname(host)
-	# Start scan
-	start_time = datetime.now()
+	start = datetime.now()
 	scan(ip)
-	# Scan ended
-	end_time = datetime.now()
-	time_taken = end_time - start_time
-	print("[*] Scan completed in {}".format(time_taken))
+	end = datetime.now()
+	net = end - start
+	print("[*] Scan completed in {}".format(net))
