@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# ^ Tell shell to run with python3 when not specified and executable
 import sys
 import socket
 from datetime import datetime
