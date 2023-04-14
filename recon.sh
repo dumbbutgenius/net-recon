@@ -17,10 +17,10 @@ do
 				if [ $? = 0 ]
 				then
 					echo "$ip was up" | tee >> /tmp/recon.txt
-					echo "Port scanning host $ip" | tee >> recon.txt
-					./portscan.py $ip
-					echo "Banner scanning host $ip" | tee >> recon.txt
-					./bangrab.py $ip
+					echo "Port scanning host $ip" | tee >> /tmp/recon.txt
+					./portscan.py $ip | tee >> /tmp/recon.txt
+					echo "Banner scanning host $ip" | tee >> /tmp/recon.txt
+					./bangrab.py $ip | tee >> /tmp/recon.txt
 				fi
 			done
 		done
